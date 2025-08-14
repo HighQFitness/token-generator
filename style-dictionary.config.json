@@ -1,0 +1,25 @@
+{
+  "source": [
+    "tokens/Global.json",
+    "tokens/Semantic.json"
+  ],
+  "preprocessors": ["tokens-studio"],
+  "platforms": {
+    "compose": {
+      "transformGroup": "compose",
+      "buildPath": "build/generated/tokens/",
+      "transforms": ["name/camel"],
+      "files": [
+        {
+          "destination": "DesignTokens.kt",
+          "format": "compose/object",
+          "className": "DesignTokens",
+          "packageName": "com.yourcompany.designsystem.tokens"
+        }
+      ],
+      "options": {
+        "outputReferences": true
+      }
+    }
+  }
+}
