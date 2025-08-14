@@ -29,6 +29,22 @@ const sd = new StyleDictionary({
         outputReferences: true,
       }
     },
+    ios: {
+      transformGroup: 'ios',
+      buildPath: 'build/ios/',
+      files: [
+        {
+          destination: 'DesignTokens.swift',
+          format: 'ios-swift/enum.swift',
+          options: {
+            className: 'DesignTokens'
+          }
+        }
+      ],
+      options: {
+        outputReferences: true,
+      }
+    },
   },
 });
 
