@@ -10,17 +10,7 @@ register(StyleDictionary);
 // Define token types and their corresponding file names
 const tokenTypes = {
   color: 'Colors',
-  spacing: 'Spacing',
-  sizing: 'Sizing',
-  borderRadius: 'BorderRadius',
-  borderWidth: 'BorderWidth',
   strokesAndShadows: 'StrokesAndShadows', // This will include border, boxShadow, and opacity
-  fontFamilies: 'FontFamilies',
-  fontWeights: 'FontWeights',
-  fontSizes: 'FontSizes',
-  lineHeights: 'LineHeights',
-  letterSpacing: 'LetterSpacing',
-  paragraphSpacing: 'ParagraphSpacing',
   typography: 'Typography', // This will include typography, textCase, and textDecoration
   spaces: 'Spaces' // This will include dimension and number
 };
@@ -28,13 +18,11 @@ const tokenTypes = {
 // Create separate Style Dictionary instances for each token type
 const platforms = {};
 
-
-
 Object.entries(tokenTypes).forEach(([type, className]) => {
   // Compose platforms
   platforms[`compose_${type}`] = {
-    transformGroup: 'compose',
-    transforms: ['name/camel'],
+    transformGroup: type === 'typography' ? 'tokens-studio' : 'compose',
+    transforms: type === 'typography' ? ['ts/typography/compose/shorthand', 'name/camel'] : ['name/camel'],
     buildPath: `build/compose/${type}/`,
     files: [
       {
