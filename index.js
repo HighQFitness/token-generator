@@ -28,7 +28,10 @@ const tokenTypes = {
 // Create separate Style Dictionary instances for each token type
 const platforms = {};
 
+
+
 Object.entries(tokenTypes).forEach(([type, className]) => {
+  // Compose platforms
   platforms[`compose_${type}`] = {
     transformGroup: 'compose',
     transforms: ['name/camel'],
@@ -47,10 +50,8 @@ Object.entries(tokenTypes).forEach(([type, className]) => {
       outputReferences: true,
     }
   };
-});
 
-// Create separate iOS platforms for each token type
-Object.entries(tokenTypes).forEach(([type, className]) => {
+  // iOS platforms
   platforms[`ios_${type}`] = {
     transformGroup: 'ios',
     buildPath: `build/ios/${type}/`,
@@ -68,43 +69,6 @@ Object.entries(tokenTypes).forEach(([type, className]) => {
     }
   };
 });
-
-// Add the original platforms
-platforms.compose = {
-  transformGroup: 'compose',
-  transforms: ['name/camel'],
-  buildPath: 'build/compose/',
-  files: [
-    {
-      destination: 'DesignTokens.kt',
-      format: 'compose/object',
-      options: {
-        className: "DesignTokens",
-        packageName: "com.test"
-      }
-    },
-  ],
-  options: {
-    outputReferences: true,
-  }
-};
-
-platforms.ios = {
-  transformGroup: 'ios',
-  buildPath: 'build/ios/',
-  files: [
-    {
-      destination: 'DesignTokens.swift',
-      format: 'ios-swift/enum.swift',
-      options: {
-        className: 'DesignTokens'
-      }
-    }
-  ],
-  options: {
-    outputReferences: true,
-  }
-};
 
 const sd = new StyleDictionary({
   source: ['tokens/**/*.json'],
@@ -157,9 +121,3 @@ Object.entries(tokenTypes).forEach(([type, className]) => {
 
 await sd.cleanAllPlatforms();
 await sd.buildAllPlatforms();
-
-console.log('🎉 Generated Kotlin and Swift files separated by token types!');
-console.log('📁 Check the build/compose/ and build/ios/ directories for separated files.');
-console.log('📝 Typography files include typography, textCase, and textDecoration tokens.');
-console.log('🎨 StrokesAndShadows files include border, boxShadow, and opacity tokens.');
-console.log('📏 Spaces files include dimension and number tokens.');
