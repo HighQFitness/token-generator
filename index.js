@@ -1,7 +1,5 @@
 import { register } from '@tokens-studio/sd-transforms';
 import StyleDictionary from 'style-dictionary';
-import fs from 'fs';
-import path from 'path';
 
 // will register them on StyleDictionary object
 // that is installed as a dependency of this package.
@@ -67,10 +65,9 @@ const sd = new StyleDictionary({
 // Custom filters to separate tokens by type
 Object.entries(tokenTypes).forEach(([type, className]) => {
   if (type === 'typography') {
-    // Special filter for typography that includes typography, textCase, and textDecoration
     sd.registerFilter({
       name: `filterByType_${type}`,
-      filter: (token) => token.type === 'typography' || token.type === 'textCase' || token.type === 'textDecoration'
+      filter: (token) => token.type === 'typography'
     });
   } else if (type === 'strokesAndShadows') {
     // Special filter for strokesAndShadows that includes border, boxShadow, and opacity
